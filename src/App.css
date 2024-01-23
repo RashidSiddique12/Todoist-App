@@ -1,0 +1,137 @@
+.menuDiv{
+    margin: 4rem 2rem 0 1rem;
+}
+
+.menuTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.menuTitle div, h3{
+cursor: pointer;
+}
+.ProjectAction{
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 2rem;
+}
+
+.menuDiv li{
+    list-style: none;
+    font-size: 1rem;
+    /* line-height: 1.5rem; */
+    padding: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+}
+.menuDiv li span{
+    margin: 0 1rem 0 1rem;
+    /* border: 1px solid black; */
+}
+
+.menuDiv li:hover{
+    background-color: #fee6e3;
+    border-radius: 6px;
+    /* padding: 1rem; */
+}
+
+.menuDiv li button{
+    display: none;
+    border: none;
+    padding: 0rem 0.5rem;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.menuDiv li:hover button{
+    display: block;
+   
+}
+.menuDiv li button:hover{
+    background-color: white;
+    border-radius: 50%;
+}
+
+.AddProjectForm label{
+font-weight: bold;
+margin:0.3rem ;
+}
+.AddProjectForm input{
+    margin-bottom: 1rem;
+    width: 95%;
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    border-radius: 4px;
+}
+
+.projectaction li{
+    margin: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+}
+
+.projectaction li span{
+    margin-right: 0.5rem;
+}
+
+.projectaction li:hover{
+    background-color: rgb(243, 239, 239);
+    border-radius: 5px;
+    cursor: pointer;
+} 
+
+.favDiv{
+    margin-top: 0;
+}
+
+.bodySection{
+    width: 70%;
+    /* border: 1px solid black; */
+    margin: auto;
+}
+
+.bodySection h1{
+    margin-bottom: -0.7rem;
+}
+
+.addDiv{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+.addDiv button{
+    background-color: rgb(236, 234, 234);
+    font-weight: bold;
+    color: black;
+}
+
+.addDiv button:hover{
+    background-color: rgb(201, 200, 200);
+    color: inherit;
+    
+}
+
+.ProjectList{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.9rem;
+    /* border: 1px solid black; */
+    font-size: 1.1rem;
+    border-radius: 5px;
+}
+.ProjectList:hover{
+    background-color: rgb(244, 244, 244);
+}
+
+.ProjectList span{
+    margin-right: 1rem;
+}
+.ProjectList button{
+    display: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.ProjectList:hover button{
+    display: block;
+}
