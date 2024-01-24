@@ -21,13 +21,16 @@ function HandleFav({ projectId }) {
   }, [projectId]);
 
   const handlefavorite = async () => {
-    console.log("1", isFavorite);
     const updatedFavorite = !isFavorite;
     setIsFavorite(updatedFavorite);
-    console.log("2", updatedFavorite);
+
     try {
       console.log("2", updatedFavorite);
-      const res = await EditProjectEP(projectId,editProjectName, updatedFavorite)
+      const res = await EditProjectEP(
+        projectId,
+        editProjectName,
+        updatedFavorite
+      );
       console.log(res);
       dispatch(setEditProject({ projectId, res }));
     } catch (error) {

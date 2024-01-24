@@ -26,6 +26,25 @@ export const EditProjectEP = (projectId, editProjectName, isFavorite) => {
   });
 };
 
-// export const favEP = (projectId, updatedFavorite) => {
-//   return api.updateProject(projectId, {name: "rr", isFavorite: updatedFavorite });
-// };
+export const getTasksEP = (projectId) => {
+  return api.getTasks({ project_id: projectId });
+};
+
+export const addTaskEP = (projectId, content, description) => {
+  return api.addTask({
+    project_id: projectId,
+    content,
+    description,
+  });
+};
+
+export const deleteTaskEP = (taskId) =>{
+ return api.deleteTask(taskId)
+}
+
+export const editTaskEP = (taskId, content, description) => {
+  return api.updateTask(taskId, {
+    content,
+    description,
+  });
+}

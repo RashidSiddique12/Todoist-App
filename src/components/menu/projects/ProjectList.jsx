@@ -9,6 +9,7 @@ function ProjectList({ data }) {
         data.map((project) => (
           <Link
             to={`/project/${project.id}`}
+            state={{ ProjectName: project.name}}
             key={project.id}
             style={{ textDecoration: "none", color: "inherit" }}
           >

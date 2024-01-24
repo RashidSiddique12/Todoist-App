@@ -1,137 +1,221 @@
-.menuDiv{
-    margin: 4rem 2rem 0 1rem;
+.menuDiv {
+  margin: 4rem 2rem 0 1rem;
 }
 
-.menuTitle{
+.menuTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menuTitle div,
+h3 {
+  cursor: pointer;
+}
+.ProjectAction {
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 2rem;
+}
+
+.menuDiv li {
+  list-style: none;
+  font-size: 1rem;
+  /* line-height: 1.5rem; */
+  padding: 0.2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.menuDiv li span {
+  margin: 0 1rem 0 1rem;
+  /* border: 1px solid black; */
+}
+
+.menuDiv li:hover {
+  background-color: #fee6e3;
+  border-radius: 6px;
+  /* padding: 1rem; */
+}
+
+.menuDiv li button {
+  display: none;
+  border: none;
+  padding: 0rem 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.menuDiv li:hover button {
+  display: block;
+}
+.menuDiv li button:hover {
+  background-color: white;
+  border-radius: 50%;
+}
+
+.AddProjectForm label {
+  font-weight: bold;
+  margin: 0.3rem;
+}
+.AddProjectForm input {
+  margin-bottom: 1rem;
+  width: 95%;
+  padding: 0.3rem;
+  margin-top: 0.3rem;
+  border-radius: 4px;
+}
+
+.projectaction li {
+  margin: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+}
+
+.projectaction li span {
+  margin-right: 0.5rem;
+}
+
+.projectaction li:hover {
+  background-color: rgb(243, 239, 239);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.favDiv {
+  margin-top: 0;
+}
+
+.bodySection {
+  width: 70%;
+  /* border: 1px solid black; */
+  margin: auto;
+}
+
+.bodySection h1 {
+  margin-bottom: -0.7rem;
+}
+
+.addDiv {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+.addDiv button {
+  background-color: rgb(236, 234, 234);
+  font-weight: bold;
+  color: black;
+}
+
+.addDiv button:hover {
+  background-color: rgb(201, 200, 200);
+  color: inherit;
+}
+
+.ProjectList {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.9rem;
+  /* border: 1px solid black; */
+  font-size: 1.1rem;
+  border-radius: 5px;
+}
+.ProjectList:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+.ProjectList span {
+  margin-right: 1rem;
+}
+.ProjectList button {
+  display: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.ProjectList:hover button {
+  display: block;
+}
+
+.taskList {
+  list-style: none;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ 
+}
+.taskAction{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.menuTitle div, h3{
-cursor: pointer;
-}
-.ProjectAction{
-    display: flex;
-    /* justify-content: space-between; */
-    gap: 2rem;
 }
 
-.menuDiv li{
-    list-style: none;
-    font-size: 1rem;
-    /* line-height: 1.5rem; */
-    padding: 0.2rem;
-    display: flex;
-    justify-content: space-between;
-}
-.menuDiv li span{
-    margin: 0 1rem 0 1rem;
-    /* border: 1px solid black; */
-}
 
-.menuDiv li:hover{
-    background-color: #fee6e3;
-    border-radius: 6px;
-    /* padding: 1rem; */
-}
-
-.menuDiv li button{
-    display: none;
+.taskAction button{ 
     border: none;
-    padding: 0rem 0.5rem;
-    cursor: pointer;
     background-color: transparent;
+    font-size: 1.3rem;
+    margin: 0 0.5rem;
+    color: rgb(132, 131, 131);
+    display: none;
+ }  
+ .taskList:hover .taskAction button{
+    display: inline-flex;
+ }
+
+.taskDes {
+  margin: 0;
+  margin-top: -0.5rem;
+  margin-left: 1.5rem;
+  font-size: 0.8rem;
+  color: rgb(115, 114, 114);
+}
+.addTask {
+  /* border: 1px solid black; */
+  display: inline-block;
+  color: rgb(126, 125, 125);
 }
 
-.menuDiv li:hover button{
-    display: block;
-   
-}
-.menuDiv li button:hover{
-    background-color: white;
-    border-radius: 50%;
+.addTask:hover {
+  color: orangered;
 }
 
-.AddProjectForm label{
-font-weight: bold;
-margin:0.3rem ;
-}
-.AddProjectForm input{
-    margin-bottom: 1rem;
-    width: 95%;
-    padding: 0.3rem;
-    margin-top: 0.3rem;
-    border-radius: 4px;
+.addTask:hover .icon {
+  background-color: orangered;
+  color: white;
+  border-radius: 50%;
 }
 
-.projectaction li{
-    margin: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    font-size: 1rem;
+.addTaskBox{
+    border: 1px solid gray;
+    border-radius: 6px;
 }
 
-.projectaction li span{
-    margin-right: 0.5rem;
-}
-
-.projectaction li:hover{
-    background-color: rgb(243, 239, 239);
-    border-radius: 5px;
-    cursor: pointer;
-} 
-
-.favDiv{
-    margin-top: 0;
-}
-
-.bodySection{
-    width: 70%;
-    /* border: 1px solid black; */
-    margin: auto;
-}
-
-.bodySection h1{
-    margin-bottom: -0.7rem;
-}
-
-.addDiv{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-}
-.addDiv button{
-    background-color: rgb(236, 234, 234);
-    font-weight: bold;
-    color: black;
-}
-
-.addDiv button:hover{
-    background-color: rgb(201, 200, 200);
-    color: inherit;
+.addTaskBox input{
+    border: none;
+    outline: none;
     
 }
 
-.ProjectList{
+.addTaskAction{
     display: flex;
-    justify-content: space-between;
-    padding: 0.9rem;
-    /* border: 1px solid black; */
-    font-size: 1.1rem;
-    border-radius: 5px;
-}
-.ProjectList:hover{
-    background-color: rgb(244, 244, 244);
+    justify-content: flex-end;
+    gap: 1rem;
+    margin: 0.5rem;
 }
 
-.ProjectList span{
-    margin-right: 1rem;
+.addTaskAction .add{
+    background-color: orangered;
+    color: white;
+    font-weight: bold;
 }
-.ProjectList button{
-    display: none;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+
+.addTaskAction .cancle{
+    font-weight: bold;
+    background-color: rgb(206, 204, 204);
 }
-.ProjectList:hover button{
-    display: block;
+.addTaskBox .bold::placeholder{
+    font-weight: bold;
+    color: grey;
+}
+
+.EditTask{
+  width: 100%;
 }
