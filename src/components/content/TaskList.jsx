@@ -1,35 +1,66 @@
-import { CheckCircleOutlined, EditOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import { CheckOutlined, EditOutlined } from "@ant-design/icons";
+import { useState } from "react";
 import TaskActions from "./TaskActions";
-import { Button, Input } from "antd";
-import { editTaskEP } from "../../api";
+import { Button, Input, Spin } from "antd";
+import { closeTaskEP, editTaskEP } from "../../api";
 import { useDispatch } from "react-redux";
-import { updateTask } from "../../store/slice/taskSlice";
+import { deleteTask, updateTask } from "../../store/slice/taskSlice";
+import AlertMessage from "../handler/AlertMessage";
 
 function TaskList({ task, projectId }) {
   const [isEdit, setIsEdit] = useState(false);
   const [editTask, setEditTask] = useState(task.content);
   const [editDes, setEditDes] = useState(task.description);
+  const [loading, setLoading] = useState(null);
+  const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
   const handleEditTask = async () => {
+    setLoading(true);
     try {
       const res = await editTaskEP(task.id, editTask, editDes);
       console.log(res);
-      dispatch(updateTask({taskId: task.id, projectId, res}));
+      dispatch(updateTask({ taskId: task.id, projectId, res }));
     } catch (error) {
-      alert(error.message);
+      setError(error.message);
     } finally {
       setIsEdit(false);
+      setLoading(false);
     }
+  };
+  const handleTaskDone = async () => {
+    setLoading(true);
+    try {
+      const res = await closeTaskEP(task.id);
+      console.log(res);
+      if (res === true) {
+        dispatch(deleteTask({ taskId: task.id, projectId }));
+      }
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCloseError = () => {
+    setError(null);
   };
 
   return !isEdit ? (
     <>
       <div>
+        {error && (
+          <AlertMessage error={error} handleCloseError={handleCloseError} />
+        )}
         <p>
-          <CheckCircleOutlined style={{ fontSize: "1.2rem" }} /> {task.content}
+          {loading && <Spin style={{ zIndex: 22 }} />}
+          <button className="taskdoneIcon" onClick={handleTaskDone}>
+            <CheckOutlined style={{ marginLeft: "-4px" }} />
+          </button>
+          {task.content}
         </p>
         <p className="taskDes">{task.description}</p>
       </div>
@@ -60,7 +91,7 @@ function TaskList({ task, projectId }) {
             Cancle
           </Button>
           <Button type="submit" onClick={handleEditTask} className="add">
-            Add Task
+            Add Task {loading && <Spin />}
           </Button>
         </div>
       </form>

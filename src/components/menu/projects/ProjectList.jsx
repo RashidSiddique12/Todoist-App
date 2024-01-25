@@ -7,23 +7,24 @@ function ProjectList({ data }) {
     <div>
       {data &&
         data.map((project) => (
-          <Link
-            to={`/project/${project.id}`}
-            state={{ ProjectName: project.name}}
-            key={project.id}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            {" "}
+          <div key={project.id}>
             <li>
-              <div>
-                <span>#</span>
-                {project.name}
-              </div>
+              <Link
+                to={`/project/${project.id}`}
+                state={{ ProjectName: project.name }}
+                key={project.id}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div>
+                  <span>#</span>
+                  {project.name}
+                </div>
+              </Link>
               <div>
                 <ProjectAction projectId={project.id} />
               </div>
             </li>
-          </Link>
+          </div>
         ))}
     </div>
   );

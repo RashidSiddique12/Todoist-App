@@ -74,6 +74,8 @@ function AddProject({ from = "" }) {
         onOk={handleOk}
         onCancel={handleCancel}
         okText="Add"
+        className="ProjectModal"
+        okButtonProps={{ disabled: newProjectName.trim() !=="" ? false : true  }}
       >
         <hr style={{ marginBottom: "1.5rem" }} />
         <form onSubmit={handleOk} className="AddProjectForm">
@@ -81,6 +83,7 @@ function AddProject({ from = "" }) {
           <input
             type="text"
             value={newProjectName}
+            autoFocus={true}
             onChange={(e) => setNewProjectName(e.target.value)}
           />
           <Switch

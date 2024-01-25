@@ -32,13 +32,23 @@ export const addTaskEP = (projectId, content, description) => {
   });
 };
 
-export const deleteTaskEP = (taskId) =>{
- return api.deleteTask(taskId)
-}
+export const deleteTaskEP = (taskId) => {
+  return api.deleteTask(taskId);
+};
 
 export const editTaskEP = (taskId, content, description) => {
   return api.updateTask(taskId, {
     content,
     description,
   });
-}
+};
+
+export const moveTaskEP = (taskId, newProjectId) => {
+  console.log("apinewid", newProjectId);
+  return api.updateTask(taskId, { content: "okok", project_id: newProjectId });
+};
+
+export const closeTaskEP = (taskId)=>{
+  return api.closeTask(taskId)
+    
+} 

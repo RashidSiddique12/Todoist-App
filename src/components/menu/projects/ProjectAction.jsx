@@ -27,14 +27,7 @@ function ProjectAction({ projectId }) {
         title="Action"
         trigger="click"
       >
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-          }}
-        >
-          ...
-        </button>
+        <button>...</button>
       </Popover>
     </div>
   );

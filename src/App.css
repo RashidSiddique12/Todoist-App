@@ -1,13 +1,18 @@
+.ant-modal-footer .ant-btn-primary {
+  background-color: #dc4c3e;
+  font-weight: bold;
+}
+
 .addTaskMn {
   margin: 4rem 2rem 0 1rem;
-  color: rgb(209, 58, 3);
+  color: #c64539;
   font-weight: bold;
   font-size: 0.9rem;
   cursor: pointer;
 }
 .addTaskMn .icon {
   color: white;
-  background-color: rgb(209, 58, 3);
+  background-color: #dc4c3e;
   border-radius: 50%;
   padding: 0.2rem;
 }
@@ -16,20 +21,35 @@
   background-color: #fee6e3;
 } */
 .addTaskModal input {
-  outline: none;
-  /* margin: 0; */
   border: none;
+  margin-bottom: 1rem;
+  margin-left: -1rem;
   /* background-color: #fee6e3; */
 }
-
+.addTaskModal input:focus {
+  outline: none;
+  border: none;
+}
 .addTaskModal .bold::placeholder {
   font-size: 1.4rem;
   font-weight: bold;
 }
-/* .addTaskModal input:focus{
+.addTaskModal button {
   outline: none;
   border: none;
-} */
+  background-color: transparent;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1rem;
+  cursor: pointer;
+}
+.addTaskModal button span {
+  margin: 0.2rem;
+}
+.addTaskModal button:hover {
+  background-color: rgb(239, 239, 239);
+  color: black;
+}
 
 .menuDiv {
   margin: 0 2rem 0 1rem;
@@ -84,17 +104,21 @@ h3 {
   background-color: white;
   border-radius: 50%;
 }
+.ProjectModal .ant-modal-title {
+  font-size: 1.3rem;
+}
 
 .AddProjectForm label {
-  font-weight: bold;
+  font-weight: 600;
   margin: 0.3rem;
 }
 .AddProjectForm input {
   margin-bottom: 1rem;
   width: 95%;
-  padding: 0.3rem;
+  padding: 0.4rem;
   margin-top: 0.3rem;
   border-radius: 4px;
+  border: 1px solid rgb(65, 64, 64);
 }
 
 .projectaction li {
@@ -134,8 +158,9 @@ h3 {
   align-items: center;
   color: rgb(104, 103, 103);
 }
-.projectHeader h3{
+.projectHeader h3 {
   margin-left: 1.5rem;
+  font-size: 15px;
 }
 .projectHeader button {
   background-color: transparent;
@@ -143,14 +168,23 @@ h3 {
   cursor: pointer;
   font-size: 1.3rem;
 }
+.projectHeader .action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.projectHeader .action > div {
+  cursor: pointer;
+}
+
 .bodySection {
   width: 70%;
   /* border: 1px solid black; */
   margin: auto;
-}
-
-.bodySection h1 {
-  margin-bottom: -0.7rem;
 }
 
 .addDiv {
@@ -196,7 +230,7 @@ h3 {
 
 .taskList {
   list-style: none;
-  margin-top: 1.5rem;
+  /* margin-top: 1rem; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -229,13 +263,16 @@ h3 {
   display: inline-block;
   color: rgb(126, 125, 125);
 }
-
+.addTask .icon {
+  color: #dc4c3e;
+  margin-right: 1rem;
+}
 .addTask:hover {
-  color: orangered;
+  color: #dc4c3e;
 }
 
 .addTask:hover .icon {
-  background-color: orangered;
+  background-color: #dc4c3e;
   color: white;
   border-radius: 50%;
 }
@@ -249,6 +286,10 @@ h3 {
   border: none;
   outline: none;
 }
+.addTaskBox .bold::placeholder {
+  font-weight: bold;
+  color: grey;
+}
 
 .addTaskAction {
   display: flex;
@@ -258,7 +299,7 @@ h3 {
 }
 
 .addTaskAction .add {
-  background-color: orangered;
+  background-color: #dc4c3e;
   color: white;
   font-weight: bold;
 }
@@ -267,11 +308,48 @@ h3 {
   font-weight: bold;
   background-color: rgb(206, 204, 204);
 }
-.addTaskBox .bold::placeholder {
-  font-weight: bold;
-  color: grey;
-}
 
 .EditTask {
   width: 100%;
+}
+.movetotask h4 {
+  margin: 1rem 0 0.5rem 0rem;
+}
+.movetotask h4 span {
+  margin-right: 0.2rem;
+}
+
+.movetotask li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.movetotask li:hover {
+  background-color: rgb(234, 232, 232);
+  border-radius: 6px;
+}
+
+.movetotask li span {
+  margin: 1rem;
+}
+
+.taskdoneIcon {
+  background-color: transparent;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  border: 1px solid rgb(154, 152, 152);
+  outline: none;
+  cursor: pointer;
+  transition: 0.3ms;
+  color: white;
+}
+.taskdoneIcon:hover {
+  /* background-color: orangered; */
+  color: rgb(154, 152, 152);
 }

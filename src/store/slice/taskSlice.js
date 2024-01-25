@@ -29,15 +29,19 @@ const taskSlice = createSlice({
         (task) => task.id !== taskId
       );
     },
-    updateTask:(state, action)=>{
-        const {taskId, projectId, res} = action.payload;
-        state.tasksData[projectId] = state.tasksData[projectId].map((task)=>{
-            if(task.id === taskId){
-                return res
-            }
-            return task
-        } ) 
+    updateTask: (state, action) => {
+      const { taskId, projectId, res } = action.payload;
+      state.tasksData[projectId] = state.tasksData[projectId].map((task) => {
+        if (task.id === taskId) {
+          return res;
+        }
+        return task;
+      });
     },
+    // closeTask:(state, action)=>{
+    //   const {taskId, projectId} = action.payload;
+    //   state.tasksData[projectId] = state.tasksData[projectId].filter((task)=>{task.id !== taskId})
+    // },
     setNewContent: (state, action) => {
       state.newcontent = action.payload;
     },
@@ -48,5 +52,12 @@ const taskSlice = createSlice({
 });
 
 export default taskSlice.reducer;
-export const { displayTasks, addNewTask, setNewContent, setNewDescription, deleteTask, updateTask } =
-  taskSlice.actions;
+export const {
+  displayTasks,
+  addNewTask,
+  setNewContent,
+  setNewDescription,
+  deleteTask,
+  updateTask,
+  closeTask,
+} = taskSlice.actions;

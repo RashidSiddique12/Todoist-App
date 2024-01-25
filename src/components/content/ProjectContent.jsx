@@ -11,10 +11,11 @@ import {
 import { useLocation } from "react-router-dom";
 import LoadingEle from "../handler/LoadingEle";
 import { Button, Input } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { MenuOutlined, MessageOutlined, PlusOutlined, UserAddOutlined } from "@ant-design/icons";
 import TaskList from "./TaskList";
 import { Header } from "antd/es/layout/layout";
 import ProjectAction from "../menu/projects/ProjectAction";
+import EmptyProjectPage from "../handler/EmptyProjectPage";
 function ProjectContent() {
   const location = useLocation();
   const ProjectName = location.state?.ProjectName || "Task";
@@ -27,7 +28,7 @@ function ProjectContent() {
   );
   const tasks = tasksData[id];
   let isLoading = loading[id];
-  console.log(tasks);
+  // console.log(tasks);
 
   const [isopenBox, setOpenBox] = useState(false);
 
@@ -61,7 +62,10 @@ function ProjectContent() {
         }}
       >
         <h3>My Projects /</h3>
-        <div>
+        <div className="action">
+          <div><UserAddOutlined/> Share</div>
+          <div><MenuOutlined /> Views</div>
+          <div><MessageOutlined /></div>
           <ProjectAction projectId={id} />
         </div>
       </Header>
@@ -126,6 +130,7 @@ function ProjectContent() {
             )}
           </>
         )}
+        {tasks && tasks.length === 0 ? <EmptyProjectPage /> : null}
       </div>
     </>
   );
