@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, HeartOutlined } from "@ant-design/icons";
-import { Popover } from "antd";
+import { Button, Popover } from "antd";
 import React from "react";
 import DeleteProject from "./DeleteProject";
 import EditProject from "./EditProject";

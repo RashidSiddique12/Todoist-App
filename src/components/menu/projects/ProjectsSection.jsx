@@ -7,11 +7,12 @@ import { Link } from "react-router-dom";
 import AddProject from "./AddProject";
 import LoadingEle from "../../handler/LoadingEle";
 import ProjectList from "./ProjectList";
+import { Alert } from "antd";
 
 function ProjectsSection() {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { projectData } = useSelector((state) => state.project);
   // console.log(projectData);
@@ -48,11 +49,25 @@ function ProjectsSection() {
         </div>
       </div>
       {show ? (
-        loading ? (
-          <LoadingEle />
-        ) : (
-          <ProjectList data={projectData} />
-        )
+        <>
+          {error && (
+            <Alert
+              message={error}
+              type="error"
+              showIcon
+              closable
+              onClose={() => setError(null)}
+              style={{
+                position: "fixed",
+                top: 10,
+                right: 10,
+                width: "50%",
+                zIndex: 9,
+              }}
+            />
+          )}
+          {loading ? <LoadingEle /> : <ProjectList data={projectData} />}
+        </>
       ) : null}
     </div>
   );

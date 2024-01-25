@@ -1,12 +1,6 @@
 import { TodoistApi } from "@doist/todoist-api-typescript";
 const api = new TodoistApi("2e827725a96d8fb413047e8be566394b81ee0bfd");
 
-// Projects:
-// List all projects
-// Create a new project
-// Edit a project
-// Delete a project
-
 export const getProject = () => {
   return api.getProjects();
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal } from "antd";
+import { Alert, Button, Modal, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,8 @@ function AddProject({ from = "" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [newProjectName, setNewProjectName] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const showModal = () => {
@@ -19,11 +21,14 @@ function AddProject({ from = "" }) {
   const handleOk = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await AddProjectEP(newProjectName, isFavorite);
       dispatch(addNewProject(res));
     } catch (error) {
       console.log(error);
+      setError(error.message || "An error occurred");
     } finally {
+      setLoading(false);
       setIsModalOpen(false);
       setNewProjectName("");
     }
@@ -32,9 +37,29 @@ function AddProject({ from = "" }) {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const handleCloseError = () => {
+    setError(null);
+  };
 
   return (
     <div>
+      {error && (
+        <Alert
+          message={error}
+          type="error"
+          showIcon
+          closable
+          onClose={handleCloseError}
+          style={{
+            position: "fixed",
+            top: 10,
+            right: 10,
+            width: "50%",
+            zIndex: 9,
+          }}
+        />
+      )}
+      {/* <Spin spinning={loading}/>  */}
       {from === "myproject" ? (
         <Button onClick={showModal} icon={<PlusOutlined />}>
           Add Project
@@ -63,8 +88,10 @@ function AddProject({ from = "" }) {
             onChange={(checked) => setIsFavorite(checked)}
           />{" "}
           <label>Add to favorites</label>
+          <Spin spinning={loading} size="medium" />
         </form>
       </Modal>
+      {/* </Spin> */}
     </div>
   );
 }

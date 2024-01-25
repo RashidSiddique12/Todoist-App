@@ -1,5 +1,38 @@
-.menuDiv {
+.addTaskMn {
   margin: 4rem 2rem 0 1rem;
+  color: rgb(209, 58, 3);
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.addTaskMn .icon {
+  color: white;
+  background-color: rgb(209, 58, 3);
+  border-radius: 50%;
+  padding: 0.2rem;
+}
+/* .addTaskMn button{
+  font-weight: bold;
+  background-color: #fee6e3;
+} */
+.addTaskModal input {
+  outline: none;
+  /* margin: 0; */
+  border: none;
+  /* background-color: #fee6e3; */
+}
+
+.addTaskModal .bold::placeholder {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+/* .addTaskModal input:focus{
+  outline: none;
+  border: none;
+} */
+
+.menuDiv {
+  margin: 0 2rem 0 1rem;
 }
 
 .menuTitle {
@@ -78,12 +111,38 @@ h3 {
   background-color: rgb(243, 239, 239);
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 .favDiv {
   margin-top: 0;
 }
 
+.myProjectHeader {
+  float: inline-end;
+  margin-right: 1rem;
+  font-weight: bold;
+  color: rgb(104, 103, 103);
+}
+.projectHeader {
+  padding: 0;
+  background-color: "white";
+  /* // border: "1px solid black" */
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(104, 103, 103);
+}
+.projectHeader h3{
+  margin-left: 1.5rem;
+}
+.projectHeader button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
 .bodySection {
   width: 70%;
   /* border: 1px solid black; */
@@ -141,24 +200,22 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
- 
 }
-.taskAction{
-    display: flex;
+.taskAction {
+  display: flex;
 }
 
-
-.taskAction button{ 
-    border: none;
-    background-color: transparent;
-    font-size: 1.3rem;
-    margin: 0 0.5rem;
-    color: rgb(132, 131, 131);
-    display: none;
- }  
- .taskList:hover .taskAction button{
-    display: inline-flex;
- }
+.taskAction button {
+  border: none;
+  background-color: transparent;
+  font-size: 1.3rem;
+  margin: 0 0.5rem;
+  color: rgb(132, 131, 131);
+  display: none;
+}
+.taskList:hover .taskAction button {
+  display: inline-flex;
+}
 
 .taskDes {
   margin: 0;
@@ -183,39 +240,38 @@ h3 {
   border-radius: 50%;
 }
 
-.addTaskBox{
-    border: 1px solid gray;
-    border-radius: 6px;
+.addTaskBox {
+  border: 1px solid gray;
+  border-radius: 6px;
 }
 
-.addTaskBox input{
-    border: none;
-    outline: none;
-    
+.addTaskBox input {
+  border: none;
+  outline: none;
 }
 
-.addTaskAction{
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin: 0.5rem;
+.addTaskAction {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin: 0.5rem;
 }
 
-.addTaskAction .add{
-    background-color: orangered;
-    color: white;
-    font-weight: bold;
+.addTaskAction .add {
+  background-color: orangered;
+  color: white;
+  font-weight: bold;
 }
 
-.addTaskAction .cancle{
-    font-weight: bold;
-    background-color: rgb(206, 204, 204);
+.addTaskAction .cancle {
+  font-weight: bold;
+  background-color: rgb(206, 204, 204);
 }
-.addTaskBox .bold::placeholder{
-    font-weight: bold;
-    color: grey;
+.addTaskBox .bold::placeholder {
+  font-weight: bold;
+  color: grey;
 }
 
-.EditTask{
+.EditTask {
   width: 100%;
 }

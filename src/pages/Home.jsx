@@ -11,26 +11,19 @@ const Home = () => {
       <SideMenu />
       <Layout
         style={{
-          marginLeft: 250,
-          // border : "1px solid black",
+          marginLeft: 245,
+          backgroundColor: "white",
         }}
       >
-        <Header
-          style={{
-            padding: 0,
-            background: "white",
-          }}
-        />
         <Content
           style={{
-            margin: "24px 16px 0",
             overflow: "initial",
-            backgroundColor : "white",
-            border : "1px solid black",
-            minHeight : "85vh"
+            backgroundColor: "white",
+            // border: "1px solid black",
+            minHeight: "85vh",
           }}
         >
-         <Outlet/>
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

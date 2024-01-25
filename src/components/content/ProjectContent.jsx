@@ -11,14 +11,10 @@ import {
 import { useLocation } from "react-router-dom";
 import LoadingEle from "../handler/LoadingEle";
 import { Button, Input } from "antd";
-import {
-  CheckCircleOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import TaskActions from "./TaskActions";
+import { PlusOutlined } from "@ant-design/icons";
 import TaskList from "./TaskList";
+import { Header } from "antd/es/layout/layout";
+import ProjectAction from "../menu/projects/ProjectAction";
 function ProjectContent() {
   const location = useLocation();
   const ProjectName = location.state?.ProjectName || "Task";
@@ -57,74 +53,81 @@ function ProjectContent() {
     }
   };
   return (
-    <div className="bodySection">
-      <h1>{ProjectName}</h1>
-      {isLoading ? (
-        <LoadingEle size={100} />
-      ) : (
-        <>
-          <div>
-            {tasks && tasks.length > 0
-              ? tasks.map((task) => (
-                  <div key={task.id}>
-                    <li className="taskList">
-                      <TaskList task={task} projectId={id}/>
-                      {/* <div>
-                        <p>
-                          <CheckCircleOutlined style={{ fontSize: "1.2rem" }} />{" "}
-                          {task.content}
-                        </p>
-                        <p className="taskDes">{task.description}</p>
-                      </div>
-                      <div className="taskAction">
-                        <TaskEdit taskId={task.id} projectId={id} />
-                        <TaskActions taskId={task.id} projectId={id} />
-                      </div> */}
-                    </li>
-                    <hr />
-                  </div>
-                ))
-              : null}
-          </div>
-          {isopenBox ? (
-            <div className="addTaskBox">
-              <form onSubmit={handleAddTask}>
-                <Input
-                  placeholder="Task name"
-                  className="bold"
-                  value={newcontent}
-                  onChange={(e) => dispatch(setNewContent(e.target.value))}
-                />
-                <Input
-                  placeholder="Description"
-                  value={newDescription}
-                  onChange={(e) => dispatch(setNewDescription(e.target.value))}
-                />
-                <hr />
-                <div className="addTaskAction">
-                  <Button className="cancle" onClick={() => setOpenBox(false)}>
-                    Cancle
-                  </Button>
-                  <Button
-                    type="submit"
-                    onClick={handleAddTask}
-                    className="add"
-                    disabled={false}
-                  >
-                    Add Task
-                  </Button>
-                </div>
-              </form>
+    <>
+      <Header
+        className="projectHeader"
+        style={{
+          background: "white",
+        }}
+      >
+        <h3>My Projects /</h3>
+        <div>
+          <ProjectAction projectId={id} />
+        </div>
+      </Header>
+      <div className="bodySection">
+        <h1>{ProjectName}</h1>
+        {isLoading ? (
+          <LoadingEle size={100} />
+        ) : (
+          <>
+            <div>
+              {tasks && tasks.length > 0
+                ? tasks.map((task) => (
+                    <div key={task.id}>
+                      <li className="taskList">
+                        <TaskList task={task} projectId={id} />
+                      </li>
+                      <hr />
+                    </div>
+                  ))
+                : null}
             </div>
-          ) : (
-            <li className="taskList addTask" onClick={() => setOpenBox(true)}>
-              {" "}
-              <PlusOutlined className="icon" /> Add Task
-            </li>
-          )}
-        </>
-      )}
-    </div>
+            {isopenBox ? (
+              <div className="addTaskBox">
+                <form onSubmit={handleAddTask}>
+                  <Input
+                    placeholder="Task name"
+                    className="bold"
+                    value={newcontent}
+                    onChange={(e) => dispatch(setNewContent(e.target.value))}
+                  />
+                  <Input
+                    placeholder="Description"
+                    value={newDescription}
+                    onChange={(e) =>
+                      dispatch(setNewDescription(e.target.value))
+                    }
+                  />
+                  <hr />
+                  <div className="addTaskAction">
+                    <Button
+                      className="cancle"
+                      onClick={() => setOpenBox(false)}
+                    >
+                      Cancle
+                    </Button>
+                    <Button
+                      type="submit"
+                      onClick={handleAddTask}
+                      className="add"
+                      disabled={false}
+                    >
+                      Add Task
+                    </Button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <li className="taskList addTask" onClick={() => setOpenBox(true)}>
+                {" "}
+                <PlusOutlined className="icon" /> Add Task
+              </li>
+            )}
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
