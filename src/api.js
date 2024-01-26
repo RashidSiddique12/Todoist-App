@@ -43,10 +43,10 @@ export const editTaskEP = (taskId, content, description) => {
   });
 };
 
-export const moveTaskEP = (taskId, newProjectId) => {
-  console.log("apinewid", newProjectId);
-  return api.updateTask(taskId, { content: "okok", project_id: newProjectId });
-};
+// export const moveTaskEP = (taskId, newProjectId) => {
+//   console.log("apinewid", newProjectId);
+//   return api.updateTask(taskId, { content: "okok", project_id: newProjectId });
+// };
 
 export const closeTaskEP = (taskId)=>{
   return api.closeTask(taskId)

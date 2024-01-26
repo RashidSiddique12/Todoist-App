@@ -3,24 +3,45 @@ import {
   UserOutlined,
   VerticalLeftOutlined,
 } from "@ant-design/icons";
-import { Avatar, Input, Popover } from "antd";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { moveTaskEP } from "../../api";
+import { Avatar, Input, Popover, Spin } from "antd";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTaskEP, deleteTaskEP } from "../../api";
+import { addNewTask, deleteTask } from "../../store/slice/taskSlice";
+import AlertMessage from "../handler/AlertMessage"
 
 function MoveTask({ taskId, oldProjectId }) {
+  const dispatch = useDispatch();
   const { projectData } = useSelector((state) => state.project);
+  const { tasksData } = useSelector((state) => state.tasks);
   const [inputVal, setInputVal] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const tasks = tasksData[oldProjectId];
+  const task = tasks.filter((task) => task.id === taskId);
+  // console.log("sss",task)
 
   const handleMoveTask = async (newProjId) => {
-    console.log("taskId", taskId)
-    console.log("old", oldProjectId)
-    console.log("new",newProjId)
+    // console.log("newId", newProjId)
+    // console.log("contetn", task[0].content)
+    // console.log("des", task[0].description)
     try {
-      const res = await moveTaskEP(taskId, newProjId);
-      console.log(res);
+      setLoading(true);
+      await deleteTaskEP(taskId);
+      const data = await addTaskEP(
+        newProjId,
+        task[0].content,
+        task[0].description
+      );
+      dispatch(addNewTask(newProjId, data));
+      dispatch(deleteTask({ taskId, projectId: oldProjectId }));
+
+      console.log("task move");
     } catch (error) {
       console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,14 +64,11 @@ function MoveTask({ taskId, oldProjectId }) {
         <span>
           <Avatar size="small" icon={<UserOutlined />} />
         </span>
-        My Projects
+        My Projects {loading && <Spin />}
       </h4>
       {filterProjectData &&
         filterProjectData.map((project) => (
-          <li
-            key={project.id}
-            onClick={() => handleMoveTask(project.id)}
-          >
+          <li key={project.id} onClick={() => handleMoveTask(project.id)}>
             <div>
               <span>#</span>
               {project.name}
@@ -68,6 +86,9 @@ function MoveTask({ taskId, oldProjectId }) {
   );
   return (
     <div>
+      {error && (
+        <AlertMessage error={error} handleCloseError={() => setError(null)} />
+      )}
       <Popover content={content} trigger="click">
         <div>
           <span>
@@ -81,3 +102,15 @@ function MoveTask({ taskId, oldProjectId }) {
 }
 
 export default MoveTask;
+
+// const handleMoveTask = async (newProjId) => {
+//   console.log("taskId", taskId)
+//   console.log("old", oldProjectId)
+//   console.log("new",newProjId)
+//   try {
+//     const res = await moveTaskEP(taskId, newProjId);
+//     console.log(res);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
