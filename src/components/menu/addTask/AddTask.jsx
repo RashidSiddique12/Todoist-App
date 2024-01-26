@@ -1,47 +1,54 @@
 import {
   CaretDownOutlined,
-  CheckOutlined,
   PlusOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Input, Modal, Popover, Select } from "antd";
+import { Avatar, Button, Input, Modal, Popover, Spin } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addNewTask,
+  setError,
+  setLoading,
   setNewContent,
   setNewDescription,
 } from "../../../store/slice/taskSlice";
 import { addTaskEP } from "../../../api";
-import { Option } from "antd/es/mentions";
+import AlertMessage from "../../handler/AlertMessage";
 
 function AddTask() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { newcontent, newDescription } = useSelector((state) => state.tasks);
+  const { newcontent, newDescription, loading, error } = useSelector(
+    (state) => state.tasks
+  );
 
   const { projectData } = useSelector((state) => state.project);
+  const dispatch = useDispatch();
   const [searchVal, setSearchVal] = useState("");
   const [selectedProject, setSelectedProject] = useState({ name: "inbox" });
-  const dispatch = useDispatch();
+
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = async (e) => {
     e.preventDefault();
+    dispatch(setLoading(true));
     try {
       const data = await addTaskEP(
         selectedProject.id,
         newcontent,
         newDescription
       );
-      // console.log("dd", data);
       dispatch(addNewTask({ id: data.projectId, data }));
     } catch (error) {
       console.log(error);
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
+      setIsModalOpen(false);
     }
 
-    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -83,6 +90,12 @@ function AddTask() {
   );
   return (
     <div className="addTaskMn ">
+      {error && (
+        <AlertMessage
+          error={error}
+          handleCloseError={() => dispatch(setError(null))}
+        />
+      )}
       <p onClick={showModal}>
         <PlusOutlined className="icon" /> Add Task
       </p>
@@ -96,6 +109,7 @@ function AddTask() {
         }}
       >
         <form onSubmit={handleOk} className="addTaskModal">
+        {loading && <Spin size="large" style={{position:"absolute", bottom:100, left:250, zIndex:2}}/>}
           <Input
             placeholder="Task name"
             className="bold"
@@ -108,9 +122,15 @@ function AddTask() {
             value={newDescription}
             onChange={(e) => dispatch(setNewDescription(e.target.value))}
           />
-          <hr style={{margin:"auto -1.3rem auto -1.3rem", color:"rgb(220, 218, 218)" }} />
+          <hr
+            style={{
+              margin: "auto -1.3rem auto -1.3rem",
+              color: "rgb(220, 218, 218)",
+            }}
+          />
           <Popover content={content} trigger="click">
-            <Button><span>#</span>
+            <Button>
+              <span>#</span>
               {selectedProject.name}
               <span>
                 <CaretDownOutlined />

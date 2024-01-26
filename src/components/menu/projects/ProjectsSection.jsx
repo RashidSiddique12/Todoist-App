@@ -1,31 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect,} from "react";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { getProject } from "../../../api";
-import { setProjectData } from "../../../store/slice/projectSlice";
+import {
+  setErrorPro,
+  setLoadingPro,
+  setProjectData,
+  setShowProject,
+} from "../../../store/slice/projectSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddProject from "./AddProject";
 import LoadingEle from "../../handler/LoadingEle";
 import ProjectList from "./ProjectList";
-import { Alert } from "antd";
+import AlertMessage from "../../handler/AlertMessage";
 
 function ProjectsSection() {
-  const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { projectData } = useSelector((state) => state.project);
-  // console.log(projectData);
+  const { projectData, loading, error, show } = useSelector(
+    (state) => state.project
+  );
 
   const fetchProjectData = async () => {
+    dispatch(setLoadingPro(true));
     try {
       const res = await getProject();
       dispatch(setProjectData(res));
     } catch (error) {
       console.log("error");
-      setError(error.message);
+      dispatch(setErrorPro(error.message));
     } finally {
-      setLoading(false);
+      dispatch(setLoadingPro(false));
     }
   };
 
@@ -42,7 +46,7 @@ function ProjectsSection() {
         <div className="ProjectAction">
           <AddProject />
 
-          <div onClick={() => setShow((prev) => !prev)}>
+          <div onClick={() => dispatch(setShowProject(!show))}>
             {" "}
             {show ? <DownOutlined /> : <RightOutlined />}
           </div>
@@ -51,19 +55,9 @@ function ProjectsSection() {
       {show ? (
         <>
           {error && (
-            <Alert
-              message={error}
-              type="error"
-              showIcon
-              closable
-              onClose={() => setError(null)}
-              style={{
-                position: "fixed",
-                top: 10,
-                right: 10,
-                width: "50%",
-                zIndex: 9,
-              }}
+            <AlertMessage
+              error={error}
+              handleCloseError={() => dispatch(setErrorPro(null))}
             />
           )}
           {loading ? <LoadingEle /> : <ProjectList data={projectData} />}

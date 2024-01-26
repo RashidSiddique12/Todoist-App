@@ -3,7 +3,7 @@ import {
   SearchOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { Button, Input } from "antd";
+import { Button, Input, Spin } from "antd";
 import React, { useState } from "react";
 import ProjectList from "../menu/projects/ProjectList";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,9 +13,13 @@ import AddProject from "../menu/projects/AddProject";
 import { Header } from "antd/es/layout/layout";
 
 function MyProjects() {
-  const { projectData } = useSelector((state) => state.project);
+  const { projectData, loading } = useSelector((state) => state.project);
   const dispatch = useDispatch();
-  const [newProjectName, setNewProjectName] = useState("");
+  const [searchVal, setSearchVal] = useState("");
+
+  const filterProjects = projectData.filter((project) =>
+    project.name.toLowerCase().includes(searchVal.toLowerCase())
+  );
 
   return (
     <>
@@ -28,7 +32,9 @@ function MyProjects() {
         }}
       >
         <span className="myProjectHeader">
-          <SettingOutlined style={{ fontSize: '1.2rem',marginRight:"0.5rem" }}/>
+          <SettingOutlined
+            style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+          />
           Settings
         </span>
       </Header>
@@ -39,36 +45,46 @@ function MyProjects() {
           size="large"
           placeholder="Search Projects"
           prefix={<SearchOutlined />}
-          value={newProjectName}
-          onChange={(e) => setNewProjectName(e.target.value)}
+          value={searchVal}
+          onChange={(e) => setSearchVal(e.target.value)}
         />
         <div className="addDiv">
           {" "}
           <AddProject from={"myproject"} />
         </div>
-
-        <h3>{projectData && projectData.length} projects</h3>
-        <div>
-          {projectData &&
-            projectData.map((project) => (
-              <Link
-                to={`/project/${project.id}`}
-                key={project.id}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                {" "}
-                <li className="ProjectList">
-                  <div>
-                    <span>#</span>
-                    {project.name}
+        {!loading ? (
+          <>
+            <h3>{filterProjects && filterProjects.length} projects</h3>
+            <div>
+              {filterProjects &&
+                filterProjects.map((project) => (
+                  <div key={project.id}>
+                    {" "}
+                    <li className="ProjectList">
+                      <Link
+                        to={`/project/${project.id}`}
+                        state={{ ProjectName: project.name }}
+                        key={project.id}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        <div>
+                          <span>#</span>
+                          {project.name}
+                        </div>
+                      </Link>
+                      <div>
+                        <ProjectAction projectId={project.id} />
+                      </div>
+                    </li>
                   </div>
-                  <div>
-                    <ProjectAction projectId={project.id} />
-                  </div>
-                </li>
-              </Link>
-            ))}
-        </div>
+                ))}
+            </div>
+          </>
+        ) : (
+          <Spin tip="Loading" size="large" style={{ height: "40vh" }}>
+            <div className="content" />
+          </Spin>
+        )}
       </div>
     </>
   );

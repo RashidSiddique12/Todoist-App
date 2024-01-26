@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { Alert, Button, Modal, Spin } from "antd";
+import { Button, Modal, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewProject } from "../../../store/slice/projectSlice";
+import { addNewProject, setIsFav, setNewProjectName } from "../../../store/slice/projectSlice";
 import { AddProjectEP } from "../../../api";
+import AlertMessage from "../../handler/AlertMessage";
 
+// eslint-disable-next-line react/prop-types
 function AddProject({ from = "" }) {
+  const dispatch = useDispatch();
+  const {newProjectName,isFavorite} = useSelector(state => state.project)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [newProjectName, setNewProjectName] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -30,36 +31,16 @@ function AddProject({ from = "" }) {
     } finally {
       setLoading(false);
       setIsModalOpen(false);
-      setNewProjectName("");
     }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const handleCloseError = () => {
-    setError(null);
-  };
 
   return (
     <div>
-      {error && (
-        <Alert
-          message={error}
-          type="error"
-          showIcon
-          closable
-          onClose={handleCloseError}
-          style={{
-            position: "fixed",
-            top: 10,
-            right: 10,
-            width: "50%",
-            zIndex: 9,
-          }}
-        />
-      )}
-      {/* <Spin spinning={loading}/>  */}
+      {error && <AlertMessage error={error} handleCloseError={()=>setError(null)}/>}
       {from === "myproject" ? (
         <Button onClick={showModal} icon={<PlusOutlined />}>
           Add Project
@@ -84,17 +65,16 @@ function AddProject({ from = "" }) {
             type="text"
             value={newProjectName}
             autoFocus={true}
-            onChange={(e) => setNewProjectName(e.target.value)}
+            onChange={(e) => dispatch(setNewProjectName(e.target.value))}
           />
           <Switch
             checked={isFavorite}
-            onChange={(checked) => setIsFavorite(checked)}
+            onChange={(checked) => dispatch(setIsFav(checked))}
           />{" "}
           <label>Add to favorites</label>
           <Spin spinning={loading} size="medium" />
         </form>
       </Modal>
-      {/* </Spin> */}
     </div>
   );
 }

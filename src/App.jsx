@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Body from "./components/content/ProjectContent";
 import MyProjects from "./components/content/MyProjects";
+import PageNotFound from "./components/handler/PageNotFound";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<MyProjects/>}/>
             <Route path="project/:id/" element={<Body />} />
           </Route>
+          <Route path="*" element={<PageNotFound message="Page not found"/>} />
         </Routes>
       </BrowserRouter>
     </>

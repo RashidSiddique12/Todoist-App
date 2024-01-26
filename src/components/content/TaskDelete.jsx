@@ -1,6 +1,6 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
-import React, { useState } from "react";
+import { Alert, Modal } from "antd";
+import { useState } from "react";
 import { deleteTaskEP } from "../../api";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../store/slice/taskSlice";
@@ -8,6 +8,7 @@ import { deleteTask } from "../../store/slice/taskSlice";
 function TaskDelete({ taskId, projectId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -15,16 +16,15 @@ function TaskDelete({ taskId, projectId }) {
 
   const handleOk = async () => {
     try {
-      const res = await deleteTaskEP(taskId);
+      const res = await deleteTaskEP();
       console.log(res);
       if (res === true) {
         dispatch(deleteTask({ taskId, projectId }));
       }
+      setIsModalOpen(false)
     } catch (error) {
-      alert(error.message);
-    } finally {
-      setIsModalOpen(false);
-    }
+      setError(error.message);
+    } 
   };
 
   const handleCancel = () => {
@@ -45,6 +45,21 @@ function TaskDelete({ taskId, projectId }) {
         onCancel={handleCancel}
         okText="delete"
       >
+        {error && (
+          <Alert
+            message={error}
+            type="error"
+            showIcon
+            closable
+            onClose={() => {
+              setError(null);
+            }}
+            style={{
+              zIndex: 2,
+            }}
+          />
+        )}
+
         <p>Are you sure you want to Delete.</p>
       </Modal>
     </div>

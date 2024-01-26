@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   tasksData: {},
-  loading: {},
-  error: {},
+  loading: null,
+  error: null,
   newcontent: "",
   newDescription: "",
 };
@@ -15,7 +15,6 @@ const taskSlice = createSlice({
     displayTasks: (state, action) => {
       const { id, data } = action.payload;
       state.tasksData[id] = data;
-      state.loading[id] = false;
     },
     addNewTask: (state, action) => {
       const { id, data } = action.payload;
@@ -38,16 +37,18 @@ const taskSlice = createSlice({
         return task;
       });
     },
-    // closeTask:(state, action)=>{
-    //   const {taskId, projectId} = action.payload;
-    //   state.tasksData[projectId] = state.tasksData[projectId].filter((task)=>{task.id !== taskId})
-    // },
     setNewContent: (state, action) => {
       state.newcontent = action.payload;
     },
     setNewDescription: (state, action) => {
       state.newDescription = action.payload;
     },
+    setLoading: (state, action)=>{
+      state.loading = action.payload
+    },
+    setError : (state, action)=>{
+      state.error = action.payload
+    }
   },
 });
 
@@ -60,4 +61,6 @@ export const {
   deleteTask,
   updateTask,
   closeTask,
+  setLoading,
+  setError
 } = taskSlice.actions;

@@ -1,15 +1,17 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
-import React, { useState } from "react";
+import { Alert, Modal, Spin } from "antd";
+import { useState } from "react";
 import { deleteProjectEP } from "../../../api";
 import { useDispatch } from "react-redux";
 import { deleteProject } from "../../../store/slice/projectSlice";
 import { useNavigate } from "react-router-dom";
+import AlertMessage from "../../handler/AlertMessage";
 
 function DeleteProject({ projectId }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const showModal = () => {
     setIsModalOpen(true);
@@ -17,16 +19,19 @@ function DeleteProject({ projectId }) {
 
   const handleOk = async () => {
     try {
+      setLoading(true);
       const res = await deleteProjectEP(projectId);
       if (res) {
         dispatch(deleteProject(projectId));
         navigate("/");
       }
+      setIsModalOpen(false);
     } catch (error) {
       console.log(error);
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
-    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -47,9 +52,24 @@ function DeleteProject({ projectId }) {
         onCancel={handleCancel}
         okText="delete"
       >
+        {error && (
+          <Alert
+            message={error}
+            type="error"
+            showIcon
+            closable
+            onClose={() => {
+              setError(null), setIsModalOpen(false);
+            }}
+            style={{
+              zIndex: 9,
+            }}
+          />
+        )}
         <p>
           This will permanently delete and all its tasks. This can’t be undone.
         </p>
+        {loading && <Spin />}
       </Modal>
     </div>
   );

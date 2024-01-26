@@ -1,26 +1,35 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Modal, Switch } from "antd";
+import { Alert, Modal, Spin, Switch } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { EditProjectEP } from "../../../api";
-import { setEditProject } from "../../../store/slice/projectSlice";
+import {
+  setEditProject,
+  setIsFav,
+  setNewProjectName,
+} from "../../../store/slice/projectSlice";
+import AlertMessage from "../../handler/AlertMessage";
 
 function EditProject({ projectId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { projectData } = useSelector((state) => state.project);
+  const { projectData, newProjectName, isFavorite } = useSelector(
+    (state) => state.project
+  );
   const dispatch = useDispatch();
-  const [isFavorite, setIsFavorite] = useState();
-  const [editProjectName, setEditProjectName] = useState("");
+  // const [isFavorite, setIsFavorite] = useState();
+  // const [editProjectName, setEditProjectName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     projectData &&
       projectData.map((project) => {
         if (project.id === projectId) {
-          setIsFavorite(project.isFavorite);
-          setEditProjectName(project.name);
+          dispatch(setIsFav(project.isFavorite));
+          dispatch(setNewProjectName(project.name));
         }
       });
-  },[projectId]);
+  }, [projectId]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -28,13 +37,14 @@ function EditProject({ projectId }) {
 
   const handleOk = async () => {
     try {
-        const res = await EditProjectEP(projectId,editProjectName, isFavorite)
-        // console.log(res);
-        dispatch(setEditProject({projectId, res}))
+      setLoading(true);
+      const res = await EditProjectEP(projectId, newProjectName, isFavorite);
+      dispatch(setEditProject({ projectId, res }));
+      setIsModalOpen(false);
     } catch (error) {
-        console.log(error)
-    }finally{
-        setIsModalOpen(false);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,20 +67,33 @@ function EditProject({ projectId }) {
         onCancel={handleCancel}
         okText="Edit"
       >
+        {error && (
+          <Alert
+            message={error}
+            type="error"
+            showIcon
+            closable
+            onClose={() => {setError(null), setIsModalOpen(false)}}
+            style={{
+              zIndex: 9,
+            }}
+          />
+        )}
         <hr style={{ marginBottom: "1.5rem" }} />
         <form onSubmit={handleOk} className="AddProjectForm">
           <label>Name</label> <br />
           <input
             type="text"
-            value={editProjectName}
-            onChange={(e) => setEditProjectName(e.target.value)}
+            value={newProjectName}
+            onChange={(e) => dispatch(setNewProjectName(e.target.value))}
           />
           <Switch
             checked={isFavorite}
-            onChange={(checked) => setIsFavorite(checked)}
+            onChange={(checked) => dispatch(setIsFav(checked))}
           />{" "}
           <label>Add to favorites</label>
         </form>
+        {loading && <Spin />}
       </Modal>
     </div>
   );

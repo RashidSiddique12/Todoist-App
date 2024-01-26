@@ -2,9 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   projectData: [],
-  // newProjectName : "",
-  // isFav: false
-  favData:[]
+  favData: [],
+  newProjectName: "",
+  isFavorite : false,
+  loading: false,
+  error: null,
+  show: false
 };
 
 const projectSlice = createSlice({
@@ -16,7 +19,8 @@ const projectSlice = createSlice({
     },
     addNewProject: (state, action) => {
       state.projectData.push(action.payload);
-      // state.newProjectName = ""
+      state.newProjectName = ""
+      state.isFavorite = false;
     },
     deleteProject: (state, action) => {
       state.projectData = state.projectData.filter(
@@ -31,20 +35,41 @@ const projectSlice = createSlice({
           return project;
         }
       });
+      state.newProjectName = ""
+      state.isFavorite = false;
     },
-    setFavData: (state, action)=>{
-      state.favData = action.payload
+    setFavData: (state, action) => {
+      state.favData = action.payload;
+    },
+    setNewProjectName: (state, action) => {
+      state.newProjectName = action.payload;
+    },
+    setIsFav :(state, action)=>{
+        state.isFavorite = action.payload
+    },
+    setLoadingPro: (state, action) => {
+      state.loading = action.payload;
+    },
+    setErrorPro: (state, action) => {
+      state.error = action.payload;
+    },
+    setShowProject : (state, action)=>{
+      state.show = action.payload;
     }
-    // setNewProjectName : (state, action)=>{
-    //     state.newProjectName = action.payload
-    // },
-    // setIsFav :(state, action)=>{
-    //     state.isFav = action.payload
-    // }
   },
 });
 
-export const { setProjectData, addNewProject, deleteProject, setEditProject, setFavData } =
-  projectSlice.actions;
+export const {
+  setProjectData,
+  addNewProject,
+  deleteProject,
+  setEditProject,
+  setFavData,
+  setNewProjectName,
+  setIsFav,
+  setLoadingPro,
+  setErrorPro,
+  setShowProject
+} = projectSlice.actions;
 
 export default projectSlice.reducer;

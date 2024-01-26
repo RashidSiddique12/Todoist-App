@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { EditProjectEP } from "../../../api";
 import { setEditProject } from "../../../store/slice/projectSlice";
+import AlertMessage from "../../handler/AlertMessage";
 
 function HandleFav({ projectId }) {
   const { projectData } = useSelector((state) => state.project);
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(null);
   const [editProjectName, setEditProjectName] = useState("");
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     projectData &&
@@ -34,15 +36,18 @@ function HandleFav({ projectId }) {
       console.log(res);
       dispatch(setEditProject({ projectId, res }));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      setError(error.message)
     }
   };
   return (
     <div onClick={handlefavorite}>
+       {error && <AlertMessage error={error} handleCloseError={()=>setError(null)}/>}
+      
       <span>
         <HeartOutlined />
       </span>
-      {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+      {isFavorite && error === null ? "Remove from Favorites" : "Add to Favorites"}
     </div>
   );
 }

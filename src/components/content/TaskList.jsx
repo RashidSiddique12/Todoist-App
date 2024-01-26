@@ -38,7 +38,6 @@ function TaskList({ task, projectId }) {
         dispatch(deleteTask({ taskId: task.id, projectId }));
       }
     } catch (error) {
-      console.log(error);
       setError(error.message);
     } finally {
       setLoading(false);

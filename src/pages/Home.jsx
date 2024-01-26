@@ -3,7 +3,7 @@ import React, { createElement } from "react";
 import { Layout } from "antd";
 import SideMenu from "../components/menu/SideMenu";
 import { Outlet } from "react-router-dom";
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 const Home = () => {
   return (

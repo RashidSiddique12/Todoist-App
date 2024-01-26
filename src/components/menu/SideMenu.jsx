@@ -1,13 +1,9 @@
-import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import ProjectsSection from "./projects/ProjectsSection";
 import FavoriteSection from "./favorite/FavoriteSection";
 import AddTask from "./addTask/AddTask";
 
 function SideMenu() {
-
-  
-  // const handleItemClick = () => {};
   return (
     <div>
       <Sider
@@ -24,10 +20,9 @@ function SideMenu() {
           // color : "rgb(77, 77, 77)"
         }}
       >
-        {/* <div className="demo-logo-vertical" /> */}
-        <AddTask/>
-        <ProjectsSection/>
-        <FavoriteSection/>
+        <AddTask />
+        <ProjectsSection />
+        <FavoriteSection />
       </Sider>
     </div>
   );
