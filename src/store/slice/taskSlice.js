@@ -18,7 +18,9 @@ const taskSlice = createSlice({
     },
     addNewTask: (state, action) => {
       const { id, data } = action.payload;
-      state.tasksData[id].push(data);
+      console.log(id, data)
+      console.log("sdd", state.tasksData[id])
+      state.tasksData[id]?.push(data);
       state.newcontent = "";
       state.newDescription = "";
     },

@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 import ProjectAction from "../menu/projects/ProjectAction";
 import AddProject from "../menu/projects/AddProject";
 import { Header } from "antd/es/layout/layout";
-
+import PageNotFound from "../handler/PageNotFound";
 function MyProjects() {
-  const { projectData, loading } = useSelector((state) => state.project);
+  const { projectData, loading, error } = useSelector((state) => state.project);
   const dispatch = useDispatch();
   const [searchVal, setSearchVal] = useState("");
 
@@ -53,33 +53,37 @@ function MyProjects() {
           <AddProject from={"myproject"} />
         </div>
         {!loading ? (
-          <>
-            <h3>{filterProjects && filterProjects.length} projects</h3>
-            <div>
-              {filterProjects &&
-                filterProjects.map((project) => (
-                  <div key={project.id}>
-                    {" "}
-                    <li className="ProjectList">
-                      <Link
-                        to={`/project/${project.id}`}
-                        state={{ ProjectName: project.name }}
-                        key={project.id}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
+          error ? (
+            <PageNotFound />
+          ) : (
+            <>
+              <h3>{filterProjects && filterProjects.length} projects</h3>
+              <div>
+                {filterProjects &&
+                  filterProjects.map((project) => (
+                    <div key={project.id}>
+                      {" "}
+                      <li className="ProjectList">
+                        <Link
+                          to={`/project/${project.id}`}
+                          state={{ ProjectName: project.name }}
+                          key={project.id}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          <div>
+                            <span>#</span>
+                            {project.name}
+                          </div>
+                        </Link>
                         <div>
-                          <span>#</span>
-                          {project.name}
+                          <ProjectAction projectId={project.id} />
                         </div>
-                      </Link>
-                      <div>
-                        <ProjectAction projectId={project.id} />
-                      </div>
-                    </li>
-                  </div>
-                ))}
-            </div>
-          </>
+                      </li>
+                    </div>
+                  ))}
+              </div>
+            </>
+          )
         ) : (
           <Spin tip="Loading" size="large" style={{ height: "40vh" }}>
             <div className="content" />

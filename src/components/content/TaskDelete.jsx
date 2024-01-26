@@ -16,7 +16,7 @@ function TaskDelete({ taskId, projectId }) {
 
   const handleOk = async () => {
     try {
-      const res = await deleteTaskEP();
+      const res = await deleteTaskEP(taskId);
       console.log(res);
       if (res === true) {
         dispatch(deleteTask({ taskId, projectId }));

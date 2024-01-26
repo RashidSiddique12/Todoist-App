@@ -40,6 +40,7 @@ function AddTask() {
         newcontent,
         newDescription
       );
+      // console.log(data);
       dispatch(addNewTask({ id: data.projectId, data }));
     } catch (error) {
       console.log(error);
@@ -48,7 +49,6 @@ function AddTask() {
       dispatch(setLoading(false));
       setIsModalOpen(false);
     }
-
   };
 
   const handleCancel = () => {
@@ -89,7 +89,7 @@ function AddTask() {
     </div>
   );
   return (
-    <div className="addTaskMn ">
+    <div className="addTaskMn">
       {error && (
         <AlertMessage
           error={error}
@@ -109,7 +109,17 @@ function AddTask() {
         }}
       >
         <form onSubmit={handleOk} className="addTaskModal">
-        {loading && <Spin size="large" style={{position:"absolute", bottom:100, left:250, zIndex:2}}/>}
+          {loading && (
+            <Spin
+              size="large"
+              style={{
+                position: "absolute",
+                bottom: 100,
+                left: 250,
+                zIndex: 2,
+              }}
+            />
+          )}
           <Input
             placeholder="Task name"
             className="bold"
