@@ -2,9 +2,24 @@
   background-color: #dc4c3e;
   font-weight: bold;
 }
-
+.profile{
+  
+  margin: 1rem 2rem 0 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  font-size: 15px;
+}
+.profile .name{
+  font-weight: bold;
+  margin-left: 8px;
+}
+.profile > div{
+  cursor: pointer;
+  /* border: 1px solid black; */
+}
 .addTaskMn {
-  margin: 4rem 2rem 0 1rem;
+  margin: 2rem 2rem 0 1rem;
   color: #c64539;
   font-weight: bold;
   font-size: 0.9rem;
@@ -63,6 +78,8 @@
 .menuTitle div,
 h3 {
   cursor: pointer;
+  color: rgb(100, 100, 100);
+  font-size: 1rem;
 }
 .ProjectAction {
   display: flex;
@@ -185,6 +202,10 @@ h3 {
   width: 70%;
   /* border: 1px solid black; */
   margin: auto;
+  
+}
+.bodySection h1{
+  margin-top: 0;
 }
 
 .addDiv {
