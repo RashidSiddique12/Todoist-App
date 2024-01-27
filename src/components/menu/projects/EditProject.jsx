@@ -22,6 +22,7 @@ function EditProject({ projectId }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log("run")
     projectData &&
       projectData.map((project) => {
         if (project.id === projectId) {
@@ -29,7 +30,7 @@ function EditProject({ projectId }) {
           dispatch(setNewProjectName(project.name));
         }
       });
-  }, [projectId]);
+  }, [projectId, isModalOpen]);
 
   const showModal = () => {
     setIsModalOpen(true);

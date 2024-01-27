@@ -152,6 +152,7 @@ function ProjectContent() {
                         onClick={handleAddTask}
                         className="add"
                         disabled={newcontent.trim() ===""? true : false}
+                        
                       >
                         Add Task {addTaskLoading && <Spin />}
                       </Button>

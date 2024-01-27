@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { EditProjectEP } from "../../../api";
 import { setEditProject } from "../../../store/slice/projectSlice";
 import AlertMessage from "../../handler/AlertMessage";
+import { Spin } from "antd";
 
 function HandleFav({ projectId }) {
   const { projectData } = useSelector((state) => state.project);
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(null);
   const [editProjectName, setEditProjectName] = useState("");
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     projectData &&
@@ -27,7 +29,7 @@ function HandleFav({ projectId }) {
     setIsFavorite(updatedFavorite);
 
     try {
-      console.log("2", updatedFavorite);
+      setLoading(true)
       const res = await EditProjectEP(
         projectId,
         editProjectName,
@@ -38,6 +40,8 @@ function HandleFav({ projectId }) {
     } catch (error) {
       // console.log(error);
       setError(error.message)
+    }finally{
+      setLoading(false)
     }
   };
   return (
@@ -48,6 +52,7 @@ function HandleFav({ projectId }) {
         <HeartOutlined />
       </span>
       {isFavorite && error === null ? "Remove from Favorites" : "Add to Favorites"}
+      {loading && <Spin/>}
     </div>
   );
 }
