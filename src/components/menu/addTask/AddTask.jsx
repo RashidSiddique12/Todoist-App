@@ -106,7 +106,6 @@ function AddTask() {
         okText="Add task"
         okButtonProps={{
           disabled: newcontent.trim() !== "" ? false : true,
-          
         }}
       >
         <form onSubmit={handleOk} className="addTaskModal">

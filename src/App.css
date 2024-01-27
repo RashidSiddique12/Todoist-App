@@ -388,15 +388,16 @@ h3 {
   background-color: #c8c7c6;
   color: inherit !important;
 }
+
 .ant-modal-footer .ant-btn-primary {
   background-color: #dc4c3e;
   font-weight: bold;
 }
-:where(.css-dev-only-do-not-override-1qhpsh8).ant-btn-primary:hover {
-  color: #fff !important;
-  background-color: #af2c20 !important;
+
+.ant-modal-footer .ant-btn-primary:hover{
+  background-color: #af2c20  !important;
+  color : white !important
 }
 
-:where(.css-1qhpsh8).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-  color: inherit; 
-}
+
+
