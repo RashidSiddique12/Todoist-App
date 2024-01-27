@@ -380,14 +380,6 @@ h3 {
   color: rgb(154, 152, 152);
 }
 
-:where(.css-dev-only-do-not-override-1qhpsh8).ant-btn{
-  border: none;
-  background-color: #e6e4e2;
-}
-:where(.css-dev-only-do-not-override-1qhpsh8).ant-btn:hover{
-  background-color: #c8c7c6;
-  color: inherit !important;
-}
 
 .ant-modal-footer .ant-btn-primary {
   background-color: #dc4c3e;
@@ -399,5 +391,12 @@ h3 {
   color : white !important
 }
 
+.ant-btn-default{
+  background-color: rgb(240, 239, 234);
+}
 
+.ant-btn-default:hover{
+  background-color: rgb(209, 207, 206) !important;
+  color: inherit !important;
+}
 
