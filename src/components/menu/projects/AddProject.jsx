@@ -70,6 +70,7 @@ function AddProject({ from = "" }) {
           <Switch
             checked={isFavorite}
             onChange={(checked) => dispatch(setIsFav(checked))}
+            style={{backgroundColor: isFavorite? " #dc4c3e" : null}}
           />{" "}
           <label>Add to favorites</label>
           <Spin spinning={loading} size="medium" />

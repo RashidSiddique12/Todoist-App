@@ -48,7 +48,7 @@ function ProjectsSection() {
 
           <div onClick={() => dispatch(setShowProject(!show))}>
             {" "}
-            {show ? <DownOutlined /> : <RightOutlined />}
+            {show ? <DownOutlined  style={{fontSize:"14px"}}/> : <RightOutlined style={{fontSize:"14px"}}/>}
           </div>
         </div>
       </div>

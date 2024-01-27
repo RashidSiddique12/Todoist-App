@@ -24,7 +24,7 @@ function FavoriteSection() {
         <h3>Favorites</h3>
         <div onClick={() => setShow((prev) => !prev)}>
           {" "}
-          {show ? <DownOutlined /> : <RightOutlined />}
+          {show ? <DownOutlined style={{fontSize:"14px"}}/> : <RightOutlined style={{fontSize:"14px"}} />}
         </div>
       </div>
       {show ? <ProjectList data={favData} /> : null}
