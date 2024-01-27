@@ -16,8 +16,6 @@ function EditProject({ projectId }) {
     (state) => state.project
   );
   const dispatch = useDispatch();
-  // const [isFavorite, setIsFavorite] = useState();
-  // const [editProjectName, setEditProjectName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -57,7 +55,7 @@ function EditProject({ projectId }) {
     <div>
       <div onClick={showModal}>
         <span>
-          <EditOutlined />
+          <EditOutlined style={{cursor:"pointer"}} />
         </span>
         Edit
       </div>

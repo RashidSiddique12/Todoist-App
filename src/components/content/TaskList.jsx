@@ -65,7 +65,7 @@ function TaskList({ task, projectId }) {
       </div>
       <div className="taskAction">
         <button onClick={() => setIsEdit(true)}>
-          <EditOutlined />
+          <EditOutlined  style={{cursor:"pointer"}}/>
         </button>
         <TaskActions taskId={task.id} projectId={projectId} />
       </div>
@@ -90,7 +90,7 @@ function TaskList({ task, projectId }) {
             Cancle
           </Button>
           <Button type="submit" onClick={handleEditTask} className="add">
-            Add Task {loading && <Spin />}
+            Save {loading && <Spin />}
           </Button>
         </div>
       </form>

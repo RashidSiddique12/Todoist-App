@@ -252,6 +252,9 @@ h3 {
   justify-content: space-between;
   align-items: center;
 }
+.taskList p{
+  cursor: pointer;
+}
 .taskAction {
   display: flex;
 }

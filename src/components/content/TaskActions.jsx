@@ -1,7 +1,8 @@
-import { DeleteOutlined, EditOutlined, EllipsisOutlined} from "@ant-design/icons";
+import {EditOutlined, EllipsisOutlined} from "@ant-design/icons";
 import { Popover } from "antd";
 import TaskDelete from "./TaskDelete";
 import MoveTask from "./MoveTask";
+import { PiDotsThreeOutlineThin } from "react-icons/pi";
 
 function TaskActions({taskId, projectId}) {
   const content = (
@@ -16,7 +17,8 @@ function TaskActions({taskId, projectId}) {
     <div>
       <Popover content={content} title="Action" trigger="click">
         <button>
-          <EllipsisOutlined />
+          {/* <EllipsisOutlined /> */}
+          <PiDotsThreeOutlineThin style={{cursor:"pointer"}} />
         </button>
       </Popover>
     </div>

@@ -1,8 +1,8 @@
-import { Button, Popover } from "antd";
-import React from "react";
+import { Popover } from "antd";
 import DeleteProject from "./DeleteProject";
 import EditProject from "./EditProject";
 import HandleFav from "../favorite/HandleFav";
+
 
 function ProjectAction({ projectId }) {
   const content = (
